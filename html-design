@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prakhar Chaturvedi — Technical Product Manager</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+    }
+  }
+}
+</script>
+<style>
+  ::selection { background: rgba(59,130,246,0.3); color: #bfdbfe; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #09090b; }
+  ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+  html { scroll-behavior: smooth; }
+
+  @keyframes blink { 0%,50% { opacity:1; } 51%,100% { opacity:0; } }
+  .cursor-blink { animation: blink 1s step-end infinite; }
+
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(24px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+  .animate-fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.7s ease-out forwards;
+  }
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+
+  @keyframes pulse-glow {
+    0%,100% { box-shadow: 0 0 8px rgba(59,130,246,0.3); }
+    50% { box-shadow: 0 0 20px rgba(59,130,246,0.6); }
+  }
+  .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .float { animation: float 6s ease-in-out infinite; }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+  .scanline {
+    background: linear-gradient(transparent, rgba(59,130,246,0.03), transparent);
+    height: 100px;
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .terminal-window {
+    background: rgba(24,24,27,0.6);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+  }
+  .terminal-header {
+    background: rgba(24,24,27,0.8);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .terminal-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+
+  .case-study-card {
+    background: rgba(24,24,27,0.6);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 500ms ease;
+    backdrop-filter: blur(12px);
+  }
+  .case-study-card:hover {
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+  }
+  .case-study-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    opacity: 0;
+  }
+  .case-study-details.open {
+    max-height: 2000px;
+    opacity: 1;
+  }
+
+  .skill-node {
+    background: rgba(24,24,27,0.5);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    transition: all 300ms ease;
+    cursor: default;
+  }
+  .skill-node:hover {
+    border-color: rgba(59,130,246,0.4);
+    background: rgba(59,130,246,0.08);
+    transform: translateY(-2px);
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(59,130,246,0.5), rgba(168,85,247,0.5), transparent);
+  }
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid;
+    background: #09090b;
+    position: relative;
+    z-index: 2;
+  }
+
+  .metric-card {
+    background: linear-gradient(135deg, rgba(24,24,27,0.8), rgba(24,24,27,0.4));
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 400ms ease;
+  }
+  .metric-card:hover {
+    border-color: rgba(59,130,246,0.3);
+    transform: scale(1.03);
+  }
+
+  .nav-link {
+    position: relative;
+    color: #a1a1aa;
+    transition: color 150ms ease;
+  }
+  .nav-link:hover { color: #ffffff; }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #3b82f6;
+    transition: width 300ms ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  .tag {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .project-visual {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+  }
+  .project-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(9,9,11,0.95));
+  }
+
+  .scroll-indicator {
+    animation: float 2s ease-in-out infinite;
+  }
+
+  @keyframes countUp {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
+</head>
+<body class="bg-[#09090b] text-white font-sans antialiased overflow-x-hidden">
+
+<!-- Scanline overlay -->
+<div class="fixed inset-0 z-50 pointer-events-none overflow-hidden">
+  <div class="scanline"></div>
+</div>
+
+<!-- Grid background -->
+<div class="fixed inset-0 grid-bg pointer-events-none z-0"></div>
+
+<!-- Glow blobs -->
+<div class="fixed top-0 right-0 w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-[150px] pointer-events-none float" style="transform-origin:center;"></div>
+<div class="fixed bottom-0 left-0 w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none" style="animation: float 8s ease-in-out infinite;"></div>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-40 h-16 flex items-center" style="background:rgba(9,9,11,0.8); backdrop-filter:blur(12px); border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div class="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3 group">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-sm font-bold font-mono pulse-glow">P</div>
+      <span class="font-semibold text-sm tracking-tight">prakhar<span class="text-blue-400">.</span>dev</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#about" class="nav-link text-sm">about</a>
+      <a href="#projects" class="nav-link text-sm">projects</a>
+      <a href="#experience" class="nav-link text-sm">experience</a>
+      <a href="#skills" class="nav-link text-sm">skills</a>
+      <a href="#education" class="nav-link text-sm">education</a>
+      <a href="#contact" class="nav-link text-sm">contact</a>
+    </div>
+    <button id="mobileMenuBtn" class="md:hidden text-zinc-400 hover:text-white transition-colors">
+      <i data-lucide="menu" class="w-5 h-5"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="fixed inset-0 z-50 hidden" style="background:rgba(9,9,11,0.95); backdrop-filter:blur(20px);">
+  <div class="flex flex-col items-center justify-center h-full gap-8">
+    <button id="mobileMenuClose" class="absolute top-5 right-6 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+    <a href="#about" class="text-2xl font-light text-zinc-300 hover:text-white transition-colors mobile-link">about</a>
+    <a href="#projects" class="text-2xl font-light text-zinc-300 hover:text-white transition-colors mobile-link">projects</a>
+    <a href="#experience" class="text-2xl font-light text-zinc-300 hover:text-white transition-colors mobile-link">experience</a>
+    <a href="#skills" class="text-2xl font-light text-zinc-300 hover:text-white transition-colors mobile-link">skills</a>
+    <a href="#education" class="text-2xl font-light text-zinc-300 hover:text-white transition-colors mobile-link">education</a>
+    <a href="#contact" class="text-2xl font-light text-zinc-300 hover:text-white transition-colors mobile-link">contact</a>
+  </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="relative min-h-screen flex items-center pt-16">
+  <div class="max-w-7xl mx-auto px-6 w-full">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left -->
+      <div>
+        <div class="animate-fade-in-up">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 mb-8">
+            <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+            <span class="text-xs font-mono text-blue-400">open to opportunities</span>
+          </div>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight leading-[1.1] animate-fade-in-up delay-100">
+          Prakhar<br>
+          <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">Chaturvedi</span>
+        </h1>
+
+        <div class="mt-6 h-8 font-mono text-sm md:text-base animate-fade-in-up delay-200">
+          <span class="text-zinc-500">$</span>
+          <span id="typewriter" class="text-zinc-300"></span>
+          <span class="cursor-blink text-blue-400">▊</span>
+        </div>
+
+        <p class="mt-8 text-lg md:text-xl text-zinc-400 leading-relaxed max-w-xl animate-fade-in-up delay-300">
+          Building AI-powered platforms from <span class="text-white font-medium">0 → 1</span>. Shipped products serving <span class="text-white font-medium">200K+ users</span> with measurable, real-world impact.
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center gap-4 animate-fade-in-up delay-400">
+          <a href="#projects" class="inline-flex items-center gap-2 h-12 px-8 bg-white text-[#09090b] rounded-lg text-sm font-medium hover:bg-zinc-200 transition-colors">
+            <i data-lucide="folder-open" class="w-4 h-4"></i>
+            View Projects
+          </a>
+          <a href="#contact" class="inline-flex items-center gap-2 h-12 px-8 border border-white/10 rounded-lg text-sm font-medium text-zinc-300 hover:bg-white/5 hover:border-white/20 transition-all">
+            <i data-lucide="message-square" class="w-4 h-4"></i>
+            Get in Touch
+          </a>
+        </div>
+
+        <!-- Quick social -->
+        <div class="mt-10 flex items-center gap-5 animate-fade-in-up delay-500">
+          <a href="https://linkedin.com/in/prakharchaturvedi001/" target="_blank" class="text-zinc-500 hover:text-blue-400 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+          <a href="https://github.com/PrakharChaturvedi" target="_blank" class="text-zinc-500 hover:text-white transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+          <a href="mailto:Prakharx45@gmail.com" class="text-zinc-500 hover:text-orange-400 transition-colors"><i data-lucide="mail" class="w-5 h-5"></i></a>
+          <a href="tel:+919630756442" class="text-zinc-500 hover:text-green-400 transition-colors"><i data-lucide="phone" class="w-5 h-5"></i></a>
+        </div>
+      </div>
+
+      <!-- Right: Terminal Card -->
+      <div class="animate-fade-in-up delay-300">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dot bg-red-500/80"></div>
+            <div class="terminal-dot bg-yellow-500/80"></div>
+            <div class="terminal-dot bg-green-500/80"></div>
+            <span class="ml-3 text-xs font-mono text-zinc-500">prakhar@portfolio ~ % node intro.js</span>
+          </div>
+          <div class="p-6 font-mono text-sm leading-relaxed">
+            <div class="text-zinc-500 mb-3">// prakharchaturvedi.config.js</div>
+            <div><span class="text-purple-400">const</span> <span class="text-blue-300">prakhar</span> = {</div>
+            <div class="ml-4"><span class="text-green-400">role</span>: <span class="text-orange-300">"Technical Product Manager"</span>,</div>
+            <div class="ml-4"><span class="text-green-400">location</span>: <span class="text-orange-300">"India"</span>,</div>
+            <div class="ml-4"><span class="text-green-400">superpower</span>: <span class="text-orange-300">"0→1 product building"</span>,</div>
+            <div class="ml-4"><span class="text-green-400">users_impacted</span>: <span class="text-blue-300">200_000</span>+,</div>
+            <div class="ml-4"><span class="text-green-400">products_shipped</span>: <span class="text-blue-300">2</span>,</div>
+            <div class="ml-4"><span class="text-green-400">automation_achieved</span>: <span class="text-blue-300">64</span>%,</div>
+            <div class="ml-4"><span class="text-green-400">cost_saved_per_client</span>: <span class="text-orange-300">"₹15L+ annually"</span>,</div>
+            <div class="ml-4"><span class="text-green-400">passions</span>: [</div>
+            <div class="ml-8"><span class="text-orange-300">"AI/ML systems"</span>,</div>
+            <div class="ml-8"><span class="text-orange-300">"distributed architecture"</span>,</div>
+            <div class="ml-8"><span class="text-orange-300">"measurable impact"</span></div>
+            <div class="ml-4">],</div>
+            <div class="ml-4"><span class="text-green-400">currently</span>: <span class="text-orange-300">"Building the future @ VirtueCloud"</span></div>
+            <div>};</div>
+            <div class="mt-3"><span class="text-purple-400">export default</span> <span class="text-blue-300">prakhar</span>;</div>
+            <div class="mt-2 flex items-center gap-1">
+              <span class="text-green-400">➜</span>
+              <span class="text-zinc-500">Ready to build.</span>
+              <span class="cursor-blink text-green-400">▊</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator flex flex-col items-center gap-2">
+    <span class="text-[10px] font-mono text-zinc-600 uppercase tracking-widest">scroll</span>
+    <i data-lucide="chevron-down" class="w-4 h-4 text-zinc-600"></i>
+  </div>
+</section>
+
+<!-- ===================== METRICS STRIP ===================== -->
+<section class="relative py-16 border-y border-white/5">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="metric-card">
+        <div class="text-3xl md:text-4xl font-semibold text-white tracking-tight">200K<span class="text-blue-400">+</span></div>
+        <div class="text-xs text-zinc-500 font-mono mt-2 uppercase tracking-wider">Users Served</div>
+      </div>
+      <div class="metric-card">
+        <div class="text-3xl md:text-4xl font-semibold text-white tracking-tight">64<span class="text-blue-400">%</span></div>
+        <div class="text-xs text-zinc-500 font-mono mt-2 uppercase tracking-wider">Automation Rate</div>
+      </div>
+      <div class="metric-card">
+        <div class="text-3xl md:text-4xl font-semibold text-white tracking-tight">₹15L<span class="text-blue-400">+</span></div>
+        <div class="text-xs text-zinc-500 font-mono mt-2 uppercase tracking-wider">Saved/Client/Year</div>
+      </div>
+      <div class="metric-card">
+        <div class="text-3xl md:text-4xl font-semibold text-white tracking-tight">99<span class="text-blue-400">%</span></div>
+        <div class="text-xs text-zinc-500 font-mono mt-2 uppercase tracking-wider">Uptime SLA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about" class="relative py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="h-px w-12 bg-gradient-to-r from-blue-500 to-transparent"></div>
+      <span class="text-xs font-mono text-blue-400 uppercase tracking-widest">01 / about</span>
+    </div>
+    <h2 class="text-3xl md:text-4xl font-medium tracking-tight mb-12">Who I Am<span class="text-blue-400">.</span></h2>
+
+    <div class="grid lg:grid-cols-5 gap-12">
+      <div class="lg:col-span-3 space-y-6">
+        <p class="text-lg text-zinc-300 leading-relaxed">
+          I'm a <span class="text-white font-medium">Technical Product Manager</span> with a track record of building AI-powered platforms from scratch. Over the past year, I've shipped two products serving <span class="text-white font-medium">200K+ users</span> — an LLM-based hotel concierge achieving <span class="text-white font-medium">64% automation</span> and <span class="text-white font-medium">₹15L+ savings per client</span>, and a career guidance platform deployed across schools in India.
+        </p>
+        <p class="text-lg text-zinc-400 leading-relaxed">
+          I'm excited about solving hard technical problems in roles where products create measurable impact. I sit at the intersection of <span class="text-zinc-200">product strategy</span>, <span class="text-zinc-200">AI/ML architecture</span>, and <span class="text-zinc-200">engineering execution</span> — translating complex stakeholder needs into systems that scale.
+        </p>
+        <p class="text-lg text-zinc-400 leading-relaxed">
+          When I'm not shipping products, I'm usually diving deep into system design, exploring new LLM capabilities, or playing basketball.
+        </p>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dot bg-red-500/80"></div>
+            <div class="terminal-dot bg-yellow-500/80"></div>
+            <div class="terminal-dot bg-green-500/80"></div>
+            <span class="ml-3 text-xs font-mono text-zinc-500">quick_facts.sh</span>
+          </div>
+          <div class="p-5 font-mono text-xs space-y-3">
+            <div class="flex items-center gap-3">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i>
+              <span class="text-zinc-400">Based in <span class="text-zinc-200">India</span></span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="briefcase" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
+              <span class="text-zinc-400">TPM @ <span class="text-zinc-200">VirtueCloud</span></span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="brain" class="w-3.5 h-3.5 text-pink-400 shrink-0"></i>
+              <span class="text-zinc-400">Focus: <span class="text-zinc-200">AI SaaS, EdTech</span></span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-green-400 shrink-0"></i>
+              <span class="text-zinc-400">B.Tech CSE · <span class="text-zinc-200">8.91 CGPA</span></span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="trophy" class="w-3.5 h-3.5 text-yellow-400 shrink-0"></i>
+              <span class="text-zinc-400">President <span class="text-zinc-200">CODEC</span></span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="basketball" class="w-3.5 h-3.5 text-orange-400 shrink-0"></i>
+              <span class="text-zinc-400">Basketball <span class="text-zinc-200">Team Player</span></span>
+            </div>
+            <div class="border-t border-white/5 pt-3 flex items-center gap-3">
+              <i data-lucide="zap" class="w-3.5 h-3.5 text-yellow-400 shrink-0"></i>
+              <span class="text-green-400">Available for opportunities</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS / CASE STUDIES ===================== -->
+<section id="projects" class="relative py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="h-px w-12 bg-gradient-to-r from-purple-500 to-transparent"></div>
+      <span class="text-xs font-mono text-purple-400 uppercase tracking-widest">02 / projects</span>
+    </div>
+    <h2 class="text-3xl md:text-4xl font-medium tracking-tight mb-4">Case Studies<span class="text-purple-400">.</span></h2>
+    <p class="text-zinc-500 text-lg mb-16 max-w-2xl">Products I've built from zero to one — with real users, real metrics, and real impact.</p>
+
+    <!-- Case Study 1: Hotel Concierge -->
+    <div class="case-study-card mb-8">
+      <div class="project-visual" style="background: url('https://picsum.photos/seed/hotel-luxury-lobby/1200/400') center/cover;">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-[#09090b]/70 to-purple-900/40"></div>
+        <div class="absolute inset-0 flex items-end p-8 z-10">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="tag bg-blue-500/20 text-blue-300 border border-blue-500/30">AI SaaS</span>
+              <span class="tag bg-purple-500/20 text-purple-300 border border-purple-500/30">LLM</span>
+              <span class="tag bg-green-500/20 text-green-300 border border-green-500/30">Multi-tenant</span>
+            </div>
+            <h3 class="text-2xl md:text-3xl font-medium tracking-tight">AI-Powered Hotel Concierge</h3>
+            <p class="text-zinc-400 mt-2 max-w-xl">LLM-based concierge serving luxury hotels — 64% automation, 12+ languages, ₹15L+ savings per hotel annually.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-8">
+        <!-- Key metrics row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="text-center p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <div class="text-2xl font-semibold text-blue-400">200K</div>
+            <div class="text-[10px] font-mono text-zinc-500 mt-1 uppercase">Users/Year</div>
+          </div>
+          <div class="text-center p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <div class="text-2xl font-semibold text-green-400">64%</div>
+            <div class="text-[10px] font-mono text-zinc-500 mt-1 uppercase">Automation</div>
+          </div>
+          <div class="text-center p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <div class="text-2xl font-semibold text-purple-400">12+</div>
+            <div class="text-[10px] font-mono text-zinc-500 mt-1 uppercase">Languages</div>
+          </div>
+          <div class="text-center p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <div class="text-2xl font-semibold text-orange-400">₹15L+</div>
+            <div class="text-[10px] font-mono text-zinc-500 mt-1 uppercase">Saved/Hotel/Year</div>
+          </div>
+        </div>
+
+        <button onclick="toggleCaseStudy('case1')" class="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors group">
+          <span id="case1-toggle-text">View Full Case Study</span>
+          <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-hover:translate-y-0.5" id="case1-chevron"></i>
+        </button>
+
+        <div id="case1" class="case-study-details">
+          <div class="mt-8 pt-8 border-t border-white/5 space-y-8">
+            <!-- The Problem -->
+            <div>
+              <h4 class="text-sm font-mono text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="alert-circle" class="w-4 h-4"></i> The Problem
+              </h4>
+              <p class="text-zinc-400 leading-relaxed">Luxury hotels rely heavily on human concierge staff for repetitive guest queries — room service requests, local recommendations, facility information. This creates operational bottlenecks, inconsistent guest experiences, and high staffing costs — especially across multiple properties and languages.</p>
+            </div>
+
+            <!-- The Solution -->
+            <div>
+              <h4 class="text-sm font-mono text-green-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="lightbulb" class="w-4 h-4"></i> The Solution
+              </h4>
+              <p class="text-zinc-400 leading-relaxed">Built an LLM-based AI concierge platform deployed across multiple luxury hotel chains. The system uses a custom RAG pipeline for brand-safe, hallucination-free responses, supports 12+ languages, and integrates with hotel management systems for real-time request fulfillment.</p>
+            </div>
+
+            <!-- My Role -->
+            <div>
+              <h4 class="text-sm font-mono text-purple-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="user" class="w-4 h-4"></i> My Role & Contributions
+              </h4>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-blue-400 mt-1 shrink-0">→</span>
+                  <span>Built and deployed LLM-based concierge serving multiple luxury hotels (~200K users/year) with 99% uptime and 64% automation of guest requests</span>
+                </li>
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-blue-400 mt-1 shrink-0">→</span>
+                  <span>Managed cross-functional teams architecting AWS-native solution (Bedrock, Lambda, S3); designed multi-tenant system supporting 12+ languages</span>
+                </li>
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-blue-400 mt-1 shrink-0">→</span>
+                  <span>Led AI/ML team developing custom RAG pipeline with 99%+ accuracy; implemented prompt engineering reducing hallucinations for brand-safe responses</span>
+                </li>
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-blue-400 mt-1 shrink-0">→</span>
+                  <span>Defined product roadmap for multilingual support, safety filtering, and personalized workflows; presented quarterly updates to C-suite and hotel clients</span>
+                </li>
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-blue-400 mt-1 shrink-0">→</span>
+                  <span>Optimized AWS Bedrock costs through model selection and caching while maintaining performance SLAs; built real-time dashboards for team visibility</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Tech Stack -->
+            <div>
+              <h4 class="text-sm font-mono text-orange-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="cpu" class="w-4 h-4"></i> Tech Stack
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="skill-node text-blue-300">AWS Bedrock</span>
+                <span class="skill-node text-yellow-300">Lambda</span>
+                <span class="skill-node text-green-300">S3</span>
+                <span class="skill-node text-purple-300">RAG Pipeline</span>
+                <span class="skill-node text-pink-300">LLMs</span>
+                <span class="skill-node text-orange-300">Prompt Engineering</span>
+                <span class="skill-node text-cyan-300">Multi-tenant Arch</span>
+                <span class="skill-node text-red-300">CloudWatch</span>
+              </div>
+            </div>
+
+            <!-- Impact -->
+            <div>
+              <h4 class="text-sm font-mono text-emerald-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="trending-up" class="w-4 h-4"></i> Impact
+              </h4>
+              <div class="grid md:grid-cols-3 gap-4">
+                <div class="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                  <div class="text-xl font-semibold text-emerald-400">₹15L+</div>
+                  <div class="text-sm text-zinc-500 mt-1">Operational cost reduction per hotel per year</div>
+                </div>
+                <div class="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                  <div class="text-xl font-semibold text-emerald-400">150%</div>
+                  <div class="text-sm text-zinc-500 mt-1">Increase in guest engagement</div>
+                </div>
+                <div class="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                  <div class="text-xl font-semibold text-emerald-400">Unified</div>
+                  <div class="text-sm text-zinc-500 mt-1">Admin panel for multi-property management</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case Study 2: Career Guidance Platform -->
+    <div class="case-study-card">
+      <div class="project-visual" style="background: url('https://picsum.photos/seed/education-campus/1200/400') center/cover;">
+        <div class="absolute inset-0 bg-gradient-to-br from-green-900/50 via-[#09090b]/70 to-blue-900/30"></div>
+        <div class="absolute inset-0 flex items-end p-8 z-10">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="tag bg-green-500/20 text-green-300 border border-green-500/30">EdTech</span>
+              <span class="tag bg-blue-500/20 text-blue-300 border border-blue-500/30">SaaS</span>
+              <span class="tag bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">0→1</span>
+            </div>
+            <h3 class="text-2xl md:text-3xl font-medium tracking-tight">Career Guidance & College Application Platform</h3>
+            <p class="text-zinc-400 mt-2 max-w-xl">EdTech SaaS platform shipped in 5 months — serving thousands of students with 99%+ uptime across government and private schools.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="text-center p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <div class="text-2xl font-semibold text-green-400">5mo</div>
+            <div class="text-[10px] font-mono text-zinc-500 mt-1 uppercase">0→1 Shipped</div>
+          </div>
+          <div class="text-center p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <div class="text-2xl font-semibold text-blue-400">99%+</div>
+            <div class="text-[10px] font-mono text-zinc-500 mt-1 uppercase">Uptime</div>
+          </div>
+          <div class="text-center p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <div class="text-2xl font-semibold text-purple-400">&lt;2s</div>
+            <div class="text-[10px] font-mono text-zinc-500 mt-1 uppercase">Response Time</div>
+          </div>
+          <div class="text-center p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <div class="text-2xl font-semibold text-orange-400">40%</div>
+            <div class="text-[10px] font-mono text-zinc-500 mt-1 uppercase">Faster Delivery</div>
+          </div>
+        </div>
+
+        <button onclick="toggleCaseStudy('case2')" class="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors group">
+          <span id="case2-toggle-text">View Full Case Study</span>
+          <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-hover:translate-y-0.5" id="case2-chevron"></i>
+        </button>
+
+        <div id="case2" class="case-study-details">
+          <div class="mt-8 pt-8 border-t border-white/5 space-y-8">
+            <div>
+              <h4 class="text-sm font-mono text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="alert-circle" class="w-4 h-4"></i> The Problem
+              </h4>
+              <p class="text-zinc-400 leading-relaxed">Students across India — especially in government schools — lack access to quality career guidance and streamlined college application processes. Existing solutions are fragmented, bandwidth-heavy, and don't serve low-connectivity environments where they're needed most.</p>
+            </div>
+
+            <div>
+              <h4 class="text-sm font-mono text-green-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="lightbulb" class="w-4 h-4"></i> The Solution
+              </h4>
+              <p class="text-zinc-400 leading-relaxed">A SaaS platform designed from the ground up for low-bandwidth school environments. S3-based content delivery achieves sub-2s response times, while a robust Node.js/DynamoDB/Redis backend ensures 99%+ uptime. Scholarship discovery and streamlined application workflows drive measurable outcomes for students and revenue for clients.</p>
+            </div>
+
+            <div>
+              <h4 class="text-sm font-mono text-purple-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="user" class="w-4 h-4"></i> My Role & Contributions
+              </h4>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-green-400 mt-1 shrink-0">→</span>
+                  <span>Shipped 0→1 EdTech platform in 5 months; scaled to thousands of students with 99%+ uptime using Node.js, DynamoDB, and Redis backend</span>
+                </li>
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-green-400 mt-1 shrink-0">→</span>
+                  <span>Designed S3-based content delivery optimized for low-bandwidth schools, achieving sub-2s response times across government and private deployments</span>
+                </li>
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-green-400 mt-1 shrink-0">→</span>
+                  <span>Drove product roadmap collaborating with UX, marketing, and school administrators; translated stakeholder needs into engineering specs</span>
+                </li>
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-green-400 mt-1 shrink-0">→</span>
+                  <span>Built monitoring stack (Prometheus, Grafana, CloudWatch) reducing incident detection time by 60% and tracking user engagement metrics</span>
+                </li>
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-green-400 mt-1 shrink-0">→</span>
+                  <span>Enabled daily zero-downtime deployments via GitHub Actions CI/CD and Docker, accelerating feature delivery velocity by 40%</span>
+                </li>
+                <li class="flex items-start gap-3 text-zinc-400">
+                  <span class="text-green-400 mt-1 shrink-0">→</span>
+                  <span>Generated significant revenue growth for clients through streamlined application workflows and scholarship discovery features</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="text-sm font-mono text-orange-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="cpu" class="w-4 h-4"></i> Tech Stack
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="skill-node text-green-300">Node.js</span>
+                <span class="skill-node text-blue-300">DynamoDB</span>
+                <span class="skill-node text-red-300">Redis</span>
+                <span class="skill-node text-yellow-300">S3</span>
+                <span class="skill-node text-purple-300">Docker</span>
+                <span class="skill-node text-cyan-300">GitHub Actions</span>
+                <span class="skill-node text-orange-300">Prometheus</span>
+                <span class="skill-node text-pink-300">Grafana</span>
+                <span class="skill-node text-indigo-300">CloudWatch</span>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-sm font-mono text-emerald-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="trending-up" class="w-4 h-4"></i> Impact
+              </h4>
+              <div class="grid md:grid-cols-3 gap-4">
+                <div class="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                  <div class="text-xl font-semibold text-emerald-400">60%</div>
+                  <div class="text-sm text-zinc-500 mt-1">Faster incident detection with monitoring stack</div>
+                </div>
+                <div class="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                  <div class="text-xl font-semibold text-emerald-400">40%</div>
+                  <div class="text-sm text-zinc-500 mt-1">Accelerated feature delivery velocity</div>
+                </div>
+                <div class="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                  <div class="text-xl font-semibold text-emerald-400">Sub-2s</div>
+                  <div class="text-sm text-zinc-500 mt-1">Response times in low-bandwidth schools</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section id="experience" class="relative py-24 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="h-px w-12 bg-gradient-to-r from-green-500 to-transparent"></div>
+      <span class="text-xs font-mono text-green-400 uppercase tracking-widest">03 / experience</span>
+    </div>
+    <h2 class="text-3xl md:text-4xl font-medium tracking-tight mb-16">Where I've Worked<span class="text-green-400">.</span></h2>
+
+    <div class="relative pl-10">
+      <div class="timeline-line"></div>
+
+      <!-- Experience 1 -->
+      <div class="relative mb-16">
+        <div class="absolute left-[-34px] top-1">
+          <div class="timeline-dot border-blue-400 pulse-glow"></div>
+        </div>
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dot bg-red-500/80"></div>
+            <div class="terminal-dot bg-yellow-500/80"></div>
+            <div class="terminal-dot bg-green-500/80"></div>
+            <span class="ml-3 text-xs font-mono text-zinc-500">experience.log</span>
+          </div>
+          <div class="p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-4">
+              <div>
+                <h3 class="text-xl font-medium">Technical Product Manager</h3>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="text-blue-400 font-medium">VirtueCloud</span>
+                  <span class="text-zinc-600">·</span>
+                  <span class="text-zinc-500 text-sm">India</span>
+                </div>
+              </div>
+              <span class="tag bg-blue-500/10 text-blue-300 border border-blue-500/20 self-start">June 2024 – Present</span>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-6">
+              Leading product development for two AI-powered SaaS platforms — an LLM-based hotel concierge and a career guidance platform — driving strategy, engineering specs, and cross-functional execution.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-lg bg-white/[0.02] border border-white/5">
+                <div class="text-sm font-medium text-white mb-1 flex items-center gap-2">
+                  <i data-lucide="brain" class="w-4 h-4 text-purple-400"></i>
+                  AI Concierge Platform
+                </div>
+                <p class="text-xs text-zinc-500">LLM-based, multi-tenant, 12+ languages, 64% automation, AWS-native</p>
+              </div>
+              <div class="p-4 rounded-lg bg-white/[0.02] border border-white/5">
+                <div class="text-sm font-medium text-white mb-1 flex items-center gap-2">
+                  <i data-lucide="graduation-cap" class="w-4 h-4 text-green-400"></i>
+                  Career Guidance Platform
+                </div>
+                <p class="text-xs text-zinc-500">EdTech SaaS, low-bandwidth optimized, 0→1 in 5 months, CI/CD</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SKILLS ===================== -->
+<section id="skills" class="relative py-24 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="h-px w-12 bg-gradient-to-r from-orange-500 to-transparent"></div>
+      <span class="text-xs font-mono text-orange-400 uppercase tracking-widest">04 / skills</span>
+    </div>
+    <h2 class="text-3xl md:text-4xl font-medium tracking-tight mb-4">Technical Arsenal<span class="text-orange-400">.</span></h2>
+    <p class="text-zinc-500 text-lg mb-16 max-w-2xl">Tools, technologies, and methodologies I use to turn product vision into shipped software.</p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Product Management -->
+      <div class="p-6 rounded-xl bg-zinc-900/40 border border-white/5 hover:border-blue-500/20 transition-all duration-500">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+            <i data-lucide="target" class="w-5 h-5 text-blue-400"></i>
+          </div>
+          <h3 class="font-medium text-white">Product Management</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-node text-zinc-300">Product Strategy</span>
+          <span class="skill-node text-zinc-300">Roadmapping</span>
+          <span class="skill-node text-zinc-300">PRD Writing</span>
+          <span class="skill-node text-zinc-300">User Stories</span>
+          <span class="skill-node text-zinc-300">Stakeholder Mgmt</span>
+          <span class="skill-node text-zinc-300">Cross-functional Leadership</span>
+          <span class="skill-node text-zinc-300">RICE / ICE</span>
+          <span class="skill-node text-zinc-300">Metrics & Analytics</span>
+        </div>
+      </div>
+
+      <!-- Backend & Infra -->
+      <div class="p-6 rounded-xl bg-zinc-900/40 border border-white/5 hover:border-green-500/20 transition-all duration-500">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+            <i data-lucide="server" class="w-5 h-5 text-green-400"></i>
+          </div>
+          <h3 class="font-medium text-white">Backend & Infrastructure</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-node text-zinc-300">Python</span>
+          <span class="skill-node text-zinc-300">JavaScript</span>
+          <span class="skill-node text-zinc-300">SQL</span>
+          <span class="skill-node text-zinc-300">DynamoDB</span>
+          <span class="skill-node text-zinc-300">Redis</span>
+          <span class="skill-node text-zinc-300">PostgreSQL</span>
+          <span class="skill-node text-zinc-300">MySQL</span>
+          <span class="skill-node text-zinc-300">Microservices</span>
+          <span class="skill-node text-zinc-300">RESTful APIs</span>
+          <span class="skill-node text-zinc-300">DB Schema Design</span>
+        </div>
+      </div>
+
+      <!-- Cloud & DevOps -->
+      <div class="p-6 rounded-xl bg-zinc-900/40 border border-white/5 hover:border-purple-500/20 transition-all duration-500">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+            <i data-lucide="cloud" class="w-5 h-5 text-purple-400"></i>
+          </div>
+          <h3 class="font-medium text-white">Cloud & DevOps</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-node text-zinc-300">AWS Bedrock</span>
+          <span class="skill-node text-zinc-300">S3 / Lambda</span>
+          <span class="skill-node text-zinc-300">CloudWatch / IAM</span>
+          <span class="skill-node text-zinc-300">ECS / EKS</span>
+          <span class="skill-node text-zinc-300">Docker</span>
+          <span class="skill-node text-zinc-300">GitHub Actions</span>
+          <span class="skill-node text-zinc-300">Prometheus / Grafana</span>
+          <span class="skill-node text-zinc-300">Terraform</span>
+          <span class="skill-node text-zinc-300">Multi-tenant Arch</span>
+        </div>
+      </div>
+
+      <!-- AI/ML & Data -->
+      <div class="p-6 rounded-xl bg-zinc-900/40 border border-white/5 hover:border-pink-500/20 transition-all duration-500">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center justify-center">
+            <i data-lucide="brain" class="w-5 h-5 text-pink-400"></i>
+          </div>
+          <h3 class="font-medium text-white">AI/ML & Data</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-node text-zinc-300">RAG</span>
+          <span class="skill-node text-zinc-300">LLMs</span>
+          <span class="skill-node text-zinc-300">AWS Bedrock</span>
+          <span class="skill-node text-zinc-300">Prompt Engineering</span>
+          <span class="skill-node text-zinc-300">AI System Design</span>
+          <span class="skill-node text-zinc-300">Data Pipelines</span>
+          <span class="skill-node text-zinc-300">Analytics & Metrics</span>
+        </div>
+      </div>
+
+      <!-- Tools & Collaboration -->
+      <div class="p-6 rounded-xl bg-zinc-900/40 border border-white/5 hover:border-yellow-500/20 transition-all duration-500">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center">
+            <i data-lucide="wrench" class="w-5 h-5 text-yellow-400"></i>
+          </div>
+          <h3 class="font-medium text-white">Tools & Methods</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-node text-zinc-300">Git / GitHub</span>
+          <span class="skill-node text-zinc-300">Jira</span>
+          <span class="skill-node text-zinc-300">Agile / Scrum</span>
+          <span class="skill-node text-zinc-300">Technical Docs</span>
+          <span class="skill-node text-zinc-300">Presentations</span>
+          <span class="skill-node text-zinc-300">Dashboard Design</span>
+        </div>
+      </div>
+
+      <!-- Currently Exploring -->
+      <div class="p-6 rounded-xl border border-dashed border-white/10 hover:border-white/20 transition-all duration-500 flex flex-col items-center justify-center text-center">
+        <i data-lucide="sparkles" class="w-8 h-8 text-zinc-600 mb-3"></i>
+        <h3 class="font-medium text-zinc-400 mb-1">Always Exploring</h3>
+        <p class="text-xs text-zinc-600">Agentic AI · Fine-tuning · Edge Deployment</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EDUCATION ===================== -->
+<section id="education" class="relative py-24 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="h-px w-12 bg-gradient-to-r from-cyan-500 to-transparent"></div>
+      <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest">05 / education</span>
+    </div>
+    <h2 class="text-3xl md:text-4xl font-medium tracking-tight mb-16">Education & More<span class="text-cyan-400">.</span></h2>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <!-- Education Card -->
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="terminal-dot bg-red-500/80"></div>
+          <div class="terminal-dot bg-yellow-500/80"></div>
+          <div class="terminal-dot bg-green-500/80"></div>
+          <span class="ml-3 text-xs font-mono text-zinc-500">education.json</span>
+        </div>
+        <div class="p-6 md:p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/20 flex items-center justify-center shrink-0">
+              <i data-lucide="graduation-cap" class="w-7 h-7 text-cyan-400"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium">B.Tech in Computer Science & IT</h3>
+              <p class="text-zinc-400 text-sm mt-1">Symbiosis University of Applied Sciences</p>
+              <div class="flex items-center gap-3 mt-2">
+                <span class="tag bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">CGPA: 8.91/10</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-white/5 pt-6">
+            <h4 class="text-sm font-mono text-zinc-500 uppercase tracking-wider mb-4">Key Modules</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-node text-cyan-300">Machine Learning</span>
+              <span class="skill-node text-blue-300">Cloud Technologies</span>
+              <span class="skill-node text-green-300">Mobile Applications</span>
+              <span class="skill-node text-purple-300">Agile Technologies</span>
+              <span class="skill-node text-yellow-300">DBMS</span>
+              <span class="skill-node text-orange-300">Java / JavaScript</span>
+              <span class="skill-node text-pink-300">UI/UX</span>
+              <span class="skill-node text-indigo-300">Data Analytics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roles & Activities -->
+      <div class="space-y-6">
+        <div class="p-6 rounded-xl bg-zinc-900/40 border border-white/5 hover:border-yellow-500/20 transition-all duration-500">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center shrink-0">
+              <i data-lucide="crown" class="w-6 h-6 text-yellow-400"></i>
+            </div>
+            <div>
+              <h3 class="font-medium text-white">President — CODEC</h3>
+              <p class="text-sm text-zinc-400 mt-1">University Coding Club</p>
+              <p class="text-sm text-zinc-500 mt-2">Led the university's coding community — organizing hackathons, workshops, and coding competitions to foster a strong engineering culture on campus.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-xl bg-zinc-900/40 border border-white/5 hover:border-orange-500/20 transition-all duration-500">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center shrink-0">
+              <i data-lucide="calendar" class="w-6 h-6 text-orange-400"></i>
+            </div>
+            <div>
+              <h3 class="font-medium text-white">Event Manager</h3>
+              <p class="text-sm text-zinc-400 mt-1">University Events & Activities</p>
+              <p class="text-sm text-zinc-500 mt-2">Coordinated and managed technical and cultural events — building organizational and leadership skills that translate directly into cross-functional product management.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-xl bg-zinc-900/40 border border-white/5 hover:border-red-500/20 transition-all duration-500">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
+              <i data-lucide="basketball" class="w-6 h-6 text-red-400"></i>
+            </div>
+            <div>
+              <h3 class="font-medium text-white">Basketball Team</h3>
+              <p class="text-sm text-zinc-400 mt-1">Active Team Member</p>
+              <p class="text-sm text-zinc-500 mt-2">Competitive basketball taught me teamwork, discipline, and performing under pressure — skills I carry into every product sprint and stakeholder review.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact" class="relative py-24 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="h-px w-12 bg-gradient-to-r from-pink-500 to-transparent"></div>
+      <span class="text-xs font-mono text-pink-400 uppercase tracking-widest">06 / contact</span>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-16 items-start">
+      <div>
+        <h2 class="text-3xl md:text-5xl font-medium tracking-tight leading-tight">
+          Let's build<br>something <span class="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">remarkable</span>.
+        </h2>
+        <p class="text-zinc-400 text-lg mt-6 max-w-md leading-relaxed">
+          I'm always open to discussing new opportunities, product ideas, or interesting technical challenges. Drop me a line.
+        </p>
+
+        <div class="mt-10 space-y-4">
+          <a href="mailto:Prakharx45@gmail.com" class="flex items-center gap-4 group p-4 rounded-xl hover:bg-white/[0.02] transition-all">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+              <i data-lucide="mail" class="w-5 h-5 text-blue-400"></i>
+            </div>
+            <div>
+              <div class="text-sm text-zinc-500">Email</div>
+              <div class="text-zinc-200 group-hover:text-white transition-colors">Prakharx45@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="tel:+919630756442" class="flex items-center gap-4 group p-4 rounded-xl hover:bg-white/[0.02] transition-all">
+            <div class="w-10 h-10 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
+              <i data-lucide="phone" class="w-5 h-5 text-green-400"></i>
+            </div>
+            <div>
+              <div class="text-sm text-zinc-500">Phone</div>
+              <div class="text-zinc-200 group-hover:text-white transition-colors">+91 9630756442</div>
+            </div>
+          </a>
+
+          <a href="https://linkedin.com/in/prakharchaturvedi001/" target="_blank" class="flex items-center gap-4 group p-4 rounded-xl hover:bg-white/[0.02] transition-all">
+            <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+              <i data-lucide="linkedin" class="w-5 h-5 text-purple-400"></i>
+            </div>
+            <div>
+              <div class="text-sm text-zinc-500">LinkedIn</div>
+              <div class="text-zinc-200 group-hover:text-white transition-colors">/in/prakharchaturvedi001</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/PrakharChaturvedi" target="_blank" class="flex items-center gap-4 group p-4 rounded-xl hover:bg-white/[0.02] transition-all">
+            <div class="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/20 transition-colors">
+              <i data-lucide="github" class="w-5 h-5 text-orange-400"></i>
+            </div>
+            <div>
+              <div class="text-sm text-zinc-500">GitHub</div>
+              <div class="text-zinc-200 group-hover:text-white transition-colors">/PrakharChaturvedi</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="terminal-dot bg-red-500/80"></div>
+          <div class="terminal-dot bg-yellow-500/80"></div>
+          <div class="terminal-dot bg-green-500/80"></div>
+          <span class="ml-3 text-xs font-mono text-zinc-500">send_message.sh</span>
+        </div>
+        <div class="p-6 md:p-8">
+          <form id="contactForm" class="space-y-5">
+            <div>
+              <label class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-2 block">// your name</label>
+              <input type="text" placeholder="John Doe" required class="w-full bg-[#09090b] border border-zinc-800 rounded-lg px-4 py-3 text-sm text-white placeholder-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all font-mono">
+            </div>
+            <div>
+              <label class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-2 block">// your email</label>
+              <input type="email" placeholder="john@example.com" required class="w-full bg-[#09090b] border border-zinc-800 rounded-lg px-4 py-3 text-sm text-white placeholder-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all font-mono">
+            </div>
+            <div>
+              <label class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-2 block">// message</label>
+              <textarea rows="5" placeholder="Tell me about your project or opportunity..." required class="w-full bg-[#09090b] border border-zinc-800 rounded-lg px-4 py-3 text-sm text-white placeholder-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all resize-none font-mono"></textarea>
+            </div>
+            <button type="submit" class="w-full h-12 bg-white text-[#09090b] rounded-lg text-sm font-medium hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              Send Message
+            </button>
+            <div id="formSuccess" class="hidden text-center py-3 text-sm text-green-400 font-mono">
+              <i data-lucide="check-circle" class="w-5 h-5 inline mr-2"></i>Message sent! I'll get back to you soon.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="border-t border-white/5 py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-sm font-bold font-mono">P</div>
+        <span class="text-sm text-zinc-500">© 2025 Prakhar Chaturvedi. Built with intent.</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="https://linkedin.com/in/prakharchaturvedi001/" target="_blank" class="text-zinc-600 hover:text-blue-400 transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+        <a href="https://github.com/PrakharChaturvedi" target="_blank" class="text-zinc-600 hover:text-white transition-colors"><i data-lucide="github" class="w-4 h-4"></i></a>
+        <a href="mailto:Prakharx45@gmail.com" class="text-zinc-600 hover:text-orange-400 transition-colors"><i data-lucide="mail" class="w-4 h-4"></i></a>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <span class="text-[10px] font-mono text-zinc-800">console.log("Thanks for scrolling this far 🚀")</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  // Typewriter effect
+  const typewriterEl = document.getElementById('typewriter');
+  const phrases = [
+    'technical_product_manager --init',
+    'building AI platforms from 0→1',
+    'shipped products · 200K+ users',
+    'LLM concierge · 64% automation',
+    'RAG pipelines · AWS-native infra',
+    'open_to_opportunities --flag'
+  ];
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let typingSpeed = 60;
+
+  function typewriter() {
+    const currentPhrase = phrases[phraseIndex];
+
+    if (isDeleting) {
+      typewriterEl.textContent = currentPhrase.substring(0, charIndex - 1);
+      charIndex--;
+      typingSpeed = 30;
+    } else {
+      typewriterEl.textContent = currentPhrase.substring(0, charIndex + 1);
+      charIndex++;
+      typingSpeed = 60;
+    }
+
+    if (!isDeleting && charIndex === currentPhrase.length) {
+      typingSpeed = 2000;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      typingSpeed = 400;
+    }
+
+    setTimeout(typewriter, typingSpeed);
+  }
+  typewriter();
+
+  // Toggle case study details
+  function toggleCaseStudy(id) {
+    const details = document.getElementById(id);
+    const chevron = document.getElementById(id + '-chevron');
+    const text = document.getElementById(id + '-toggle-text');
+    const isOpen = details.classList.contains('open');
+
+    if (isOpen) {
+      details.classList.remove('open');
+      chevron.style.transform = 'rotate(0deg)';
+      text.textContent = 'View Full Case Study';
+    } else {
+      details.classList.add('open');
+      chevron.style.transform = 'rotate(180deg)';
+      text.textContent = 'Collapse Case Study';
+    }
+  }
+
+  // Mobile menu
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileMenu.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  });
+
+  mobileMenuClose.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden');
+    document.body.style.overflow = '';
+  });
+
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Contact form
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type="submit"]');
+    btn.innerHTML = '<svg class="animate-spin w-5 h-5" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg> Sending...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Sent!';
+      btn.classList.remove('bg-white', 'text-[#09090b]');
+      btn.classList.add('bg-green-500/20', 'text-green-400', 'border', 'border-green-500/30');
+      document.getElementById('formSuccess').classList.remove('hidden');
+      lucide.createIcons();
+
+      setTimeout(() => {
+        this.reset();
+        btn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> Send Message';
+        btn.classList.add('bg-white', 'text-[#09090b]');
+        btn.classList.remove('bg-green-500/20', 'text-green-400', 'border', 'border-green-500/30');
+        btn.disabled = false;
+        document.getElementById('formSuccess').classList.add('hidden');
+        lucide.createIcons();
+      }, 3000);
+    }, 1500);
+  });
+
+  // Intersection Observer for scroll animations
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('section > div').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+
+  // Active nav link highlighting
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (pageYOffset >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.style.color = '';
+      if (link.getAttribute('href') === '#' + current) {
+        link.style.color = '#ffffff';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
